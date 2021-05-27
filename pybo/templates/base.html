@@ -4,7 +4,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS
+     css 파일 이름이 변경되거나 새로운 css 파일이 추가되어도 템플릿파들을
+     모두 수정할 필요없도록 Flask는 템플릿 상속 기능 제공
+     -->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <!-- pybo CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">

@@ -12,3 +12,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # Modification은 SQLalchemy의 이벤트를 처리하는 옵션. 파이보에서 안필요해서 비활성화(flase)
 
 SECRET_KEY = "dev"
+# 실제 서비스를 운영할 때에는 "dev"처럼 유추하기 쉬운 문자열을 입력하면 안 된다.
+# 물론 현재는 개발환경이므로 괜찮다.

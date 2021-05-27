@@ -10,9 +10,11 @@ bp = Blueprint('main', __name__, url_prefix='/')
 #@bp.route에서 bp는 Blueprint 클래스로 생성한 객체를 의미
 @bp.route('/hello')
 def hello_pybo():
-    return "Hello, Pybo! 보고싶다 황요섭"
+    return "Hello, Pybo!"
 
 @bp.route('/')
 def index():
     return redirect(url_for('question._list'))
-
+    # url_for 메서드에서 전달되는 인수는 controller에 존재하는 각 함수 이다.
+    # 만약 다른 controller.py(_views.py)에 존재하는 함수라면 임포트하지 않고
+    # 'blueprint_name.method_name' 형식으로 인수를 전달해준다.
