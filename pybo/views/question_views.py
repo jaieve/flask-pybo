@@ -7,6 +7,8 @@ from datetime import datetime
 from werkzeug.utils import redirect
 from .. import db
 from ..forms import QuestionForm, AnswerForm
+# Flask-WTF (플라스크 폼모듈)로 만든 form을 가져오기위해 상위디렉터리의 forms.py로부터
+# QuestionForn(create())과 AnswerForm 임포트
 
 
 bp = Blueprint('question', __name__, url_prefix='/question')
@@ -35,10 +37,14 @@ def detail(question_id):
 @bp.route('/create/', methods=('POST', 'GET'))
 def create():
     form = QuestionForm()
+    # method가 POST라면 질문등록페이지(/question/create/)에서 함수 호출한 것
+    # form값 받아서 db에 commit해야 함.
     if request.method =='POST' and form.validate_on_submit():
         question = Question(subject=form.subject.data, content=form.content.data, create_date = datetime.now())
         db.session.add(question)
         db.session.commit()
         return redirect(url_for('main.index'))
+    # method가 GET이라면 질문게시판페이지에서 '질문등록하기'버튼을 누른 것
+    # 질문작성 form을 html로 전달. url은 라우트함수로 지정된다. ('/question/create/
     return render_template('question/question_form.html', form=form)
 
