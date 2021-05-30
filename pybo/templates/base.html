@@ -8,16 +8,38 @@
      css 파일 이름이 변경되거나 새로운 css 파일이 추가되어도 템플릿파들을
      모두 수정할 필요없도록 Flask는 템플릿 상속 기능 제공
      -->
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css' )}}">
     <!-- pybo CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Hello, pybo!</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand" href="{{ url_for('main.index') }}">Pybo</a>
+    <!--main 뷰의 index 함수 실행-->
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">계정생성</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="#">로그인</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% block content %}
 {% endblock %}
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- jQuery JS -->
+<script src="{{ url_for('static', filename='jquery-3.6.0.min.js') }}"></script>
+<!-- Bootstrap JS -->
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
 </body>
 </html>

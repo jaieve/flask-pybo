@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <!-- 답변을 확인할 수 있는 영역-->
+    <!-- 답변 확인 영역 시작-->
     <h5 class="border-bottom my-3 py-2">{{ question.answer_set|length }}개의 답변이 있습니다.</h5>
     <!---|length 는 템플릿 필터.-->
     {% for answer in question.answer_set %}
@@ -41,6 +41,7 @@
     <!--답변 확인 영역 종료-->
      <form action="{{ url_for('answer.create', question_id=question.id) }}" method="post" class="my-3">
           {{ form.csrf_token }}
+         <!--페이지에서 작성한 데이터가 넘어가는게 맞는지 확인해주는 CSRF토큰 심어주기-->
          <!-- 오류표시 Start -->
         {% for field, errors in form.errors.items() %}
         <div class="alert alert-danger" role="alert">

@@ -28,6 +28,7 @@ def _list():
 @bp.route('/detail/<int:question_id>/')
 def detail(question_id):
     form = AnswerForm()
+    # 질문 상세 템플릿에서 답변이 작성될 때 필요한 AnswerForm
     question = Question.query.get_or_404(question_id)
     # 존재하지 않는 question_id를 요청할 경우 404오류페이지를 표시해주는 메서드
     #질문내용을 Question(클래스, pybo.db)에서 꺼내 렌더링html로 전송
@@ -37,7 +38,7 @@ def detail(question_id):
 @bp.route('/create/', methods=('POST', 'GET'))
 def create():
     form = QuestionForm()
-    # method가 POST라면 질문등록페이지(/question/create/)에서 함수 호출한 것
+    # method가 POST : 질문등록페이지(/question/create/)에서 폼 제출
     # form값 받아서 db에 commit해야 함.
     if request.method =='POST' and form.validate_on_submit():
         question = Question(subject=form.subject.data, content=form.content.data, create_date = datetime.now())

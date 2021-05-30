@@ -11,6 +11,7 @@ bp = Blueprint('answer', __name__, url_prefix='/answer')
 # main_views.py의 bp : 'main', url_prefix='/'
 # question_views.py의 ㅠㅔ : 'question', url_prefix='/question'
 
+# 답변 폼 채워지고 '작성하기' 버튼 누르면 호출되는 함수
 # url = '/answer/create/2/'
 @bp.route('/create/<int:question_id>', methods=('POST',))
 def create(question_id):
