@@ -20,7 +20,10 @@ bp = Blueprint('question', __name__, url_prefix='/question')
 # 라우트도 '/' 에서 "/list'로 변경
 @bp.route('/list/')
 def _list():
+    page = request.args.get('page', type=int, default=1)
+    # GET 방식으로 요청한 URL에서 page값을 가져올 때 사용한다.
     question_list = Question.query.order_by(Question.create_date.desc())
+    question_list = question_list.paginate(page, per_page=10)
     return render_template('question/question_list.html', question_list=question_list)
 
 # 질문목록에서 링크를 누르면 다음의 url을 요청
