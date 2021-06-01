@@ -28,11 +28,9 @@
         {% if question_list %}
         {% for question in question_list.items %}
         <tr>
-            <td>{{ loop.index }}</td>
-            <!-- Flask의 템플릿 태그
-             loop.index : 반복 순서, 1부터 1씩 증가
-             loop.index() : 반복 순서, 0부터 1씩 증가
-            -->
+            <td>{{ question_list.total - ((question_list.page-1)*question_list.per_page) - loop.index0 }}</td>
+            <!-- Flask의 템플릿 태그 loop.index0 : 반복 순서, 0부터 1씩 증가 -->
+            <!--번호 = 전체 게시물 개수 - (현재 페이지 - 1) * 페이지당 게시물 개수 - 나열 인덱스-->
             <td>
                 <a href="{{ url_for('question.detail', question_id=question.id) }}">{{ question.subject }}</a>
             </td>
