@@ -33,6 +33,9 @@
             <!--번호 = 전체 게시물 개수 - (현재 페이지 - 1) * 페이지당 게시물 개수 - 나열 인덱스-->
             <td>
                 <a href="{{ url_for('question.detail', question_id=question.id) }}">{{ question.subject }}</a>
+                {% if question.answer_set|length > 0%}
+                <span class="text-danger small ml-2">{{ question.answer_set|length }}</span>
+                {% endif%}
             </td>
             <td>{{ question.create_date|datetime }}</td>
         </tr>
