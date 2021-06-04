@@ -7,6 +7,7 @@ from datetime import datetime
 from werkzeug.utils import redirect
 from .. import db
 from ..forms import QuestionForm, AnswerForm
+from pybo.views.auth_views import login_required
 # Flask-WTF (플라스크 폼모듈)로 만든 form을 가져오기위해 상위디렉터리의 forms.py로부터
 # QuestionForn(create())과 AnswerForm 임포트
 
@@ -39,6 +40,7 @@ def detail(question_id):
 
 # url = '/question/create/'
 @bp.route('/create/', methods=('POST', 'GET'))
+@login_required
 def create():
     form = QuestionForm()
     # method가 POST : 질문등록페이지(/question/create/)에서 폼 제출

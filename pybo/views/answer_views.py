@@ -6,6 +6,7 @@ from werkzeug.utils import redirect
 from pybo import db
 from ..forms import AnswerForm
 from pybo.models import Question, Answer
+from .auth_views import login_required
 
 bp = Blueprint('answer', __name__, url_prefix='/answer')
 # main_views.py의 bp : 'main', url_prefix='/'
@@ -14,6 +15,7 @@ bp = Blueprint('answer', __name__, url_prefix='/answer')
 # 답변 폼 채워지고 '작성하기' 버튼 누르면 호출되는 함수
 # url = '/answer/create/2/'
 @bp.route('/create/<int:question_id>', methods=('POST',))
+@login_required
 def create(question_id):
     form = AnswerForm()
     question = Question.query.get_or_404(question_id)
