@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, g
 
 from pybo.models import Question
 from ..forms import QuestionForm
@@ -44,7 +44,7 @@ def create():
     # method가 POST : 질문등록페이지(/question/create/)에서 폼 제출
     # form값 받아서 db에 commit해야 함.
     if request.method =='POST' and form.validate_on_submit():
-        question = Question(subject=form.subject.data, content=form.content.data, create_date = datetime.now())
+        question = Question(subject=form.subject.data, content=form.content.data, create_date = datetime.now(), user=g.user)
         db.session.add(question)
         db.session.commit()
         return redirect(url_for('main.index'))

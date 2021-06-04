@@ -14,6 +14,8 @@ class Question(db.Model):
     subject = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    user = db.relationship('User', backref=db.backref('question_set'))
 
 # 답변모델 속성
 # id : 답변데이터의 고유 번호
@@ -32,7 +34,7 @@ class Answer(db.Model):
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
-    user = db.relationship('User', backref=db.backref('question_set'))
+    user = db.relationship('User', backref=db.backref('answer_set'))
 
 
 class User(db.Model):
