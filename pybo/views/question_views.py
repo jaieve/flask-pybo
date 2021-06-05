@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, g
+from flask import Blueprint, render_template, request, url_for, g, flash
 
 from pybo.models import Question
 from ..forms import QuestionForm
@@ -52,5 +52,24 @@ def create():
         return redirect(url_for('main.index'))
     # method가 GET이라면 질문게시판페이지에서 '질문등록하기'버튼을 누른 것
     # 질문작성 form을 html로 전달. url은 라우트함수로 지정된다. ('/question/create/
+    return render_template('question/question_form.html', form=form)
+
+
+@bp.route("/modify/<int:question_id>", methods=('GET', 'POST'))
+@login_required
+def modify(question_id):
+    question = Question.query.get_or_404(question_id)
+    if g.user != question.user:
+        flash('수정권한이 없습니다.')
+        return redirect(url_for('question.detail', question_id=question_id))
+    if request.method =='POST':
+        form = QuestionForm()
+        if form.validate_on_submit():
+            form.populate_obj(question)
+            question.modify_date = datetime.now()
+            db.session.commit()
+            return redirect(url_for('question.detail', question_id=question_id))
+    else:
+        form = QuestionForm(obj=question)
     return render_template('question/question_form.html', form=form)
 
