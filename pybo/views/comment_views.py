@@ -39,3 +39,15 @@ def modify_comment(comment_id):
     else:
         form = CommentForm(obj=comment)
     return render_template('comment/comment_form.html', form=form)
+
+@bp.route('/delete/question/<int:comment_id>', methods=('GET', 'POST'))
+@login_required
+def delete_question(comment_id):
+    comment=Comment.query.get_or_404(comment_id)
+    question_id = comment.question.id
+    if g.user != comment.user:
+        flash('삭제 권한이 없습니다.')
+        return redirect(url_for('question.detail', question_id=question_id))
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('question.detail', question_id=question_id))
