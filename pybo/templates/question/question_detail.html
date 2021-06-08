@@ -29,7 +29,17 @@
                     <div class="mb-2"> {{ question.user.username}}</div>
                     <div>{{ question.create_date|datetime }}</div>
                 </div>
-                <!-- 질문 댓글 Start -->
+
+            </div>
+            {% if g.user == question.user%}
+            <div class="my-3">
+                <a href="{{url_for('question.modify', question_id=question.id)}}"
+                   class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="#" class="delete btn btn-sm btn-outline-secondary"
+                   data-uri="{{ url_for('question.delete', question_id=question.id) }}">삭제</a>
+            </div>
+            {% endif%}
+            <!-- 질문 댓글 Start -->
                 {% if question.comment_set|length > 0 %}
                 <div class="mt-3">
                 {% for comment in question.comment_set %}
@@ -55,15 +65,6 @@
                        class="small"><small>댓글 추가 ..</small></a>
                 </div>
                 <!-- 질문 댓글 End -->
-            </div>
-            {% if g.user == question.user%}
-            <div class="my-3">
-                <a href="{{url_for('question.modify', question_id=question.id)}}"
-                   class="btn btn-sm btn-outline-secondary">수정</a>
-                <a href="#" class="delete btn btn-sm btn-outline-secondary"
-                   data-uri="{{ url_for('question.delete', question_id=question.id) }}">삭제</a>
-            </div>
-            {% endif%}
         </div>
     </div>
     <!-- 질문 영역 종료-->
