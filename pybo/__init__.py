@@ -38,11 +38,12 @@ def create_app():
     #블루프린트
     # 상대경로인 views 폴더에서 3가지 view.py 임포트
     # 플라스트 어플인 app이 생성될 때 각 블루프린트 적용
-    from .views import main_views,question_views, answer_views, auth_views
+    from .views import main_views,question_views, answer_views, auth_views, comment_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
     app.register_blueprint(auth_views.bp)
+    app.register_blueprint(comment_views.bp)
 
 
     # 필터
