@@ -25,6 +25,13 @@ class Question(db.Model):
     modify_date = db.Column(db.DateTime(), nullable=True)
     voter = db.relationship('User', secondary=question_voter, backref=db.backref('question_voter_set'))
 
+
+answer_voter = db.Table(
+    'answer_voter',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), primary_key=True),
+    db.Column('answer_id', db.Integer, db.ForeignKey('answer.id', ondelete='CASCADE'), primary_key=True)
+)
+
 # 답변모델 속성
 # id : 답변데이터의 고유 번호
 # question_id : 질문데이터의 고유번호
@@ -44,7 +51,7 @@ class Answer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     user = db.relationship('User', backref=db.backref('answer_set'))
     modify_date = db.Column(db.DateTime(), nullable=True)
-
+    voter = db.relationship('User', secondary=answer_voter, backref=db.backref('answer_voter_set'))
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
