@@ -3,6 +3,12 @@ from pybo import db
 # init.py에서 creat_app()하기전에 만든 SQLAlchemy 객체
 
 
+question_voter = db.Table(
+    'questoin_voter',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), primary_key=True),
+    db.Column('question_id', db.Integer, db.ForeignKey('question.id', ondelete='CASCADE'), primary_key=True)
+)
+
 # 질문모델 속성
 # id  :질문 데이터 고유 번호
 # subject : 질문 제목
@@ -17,6 +23,7 @@ class Question(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     user = db.relationship('User', backref=db.backref('question_set'))
     modify_date = db.Column(db.DateTime(), nullable=True)
+    voter = db.relationship('User', secondary=question_voter, backref=db.backref('question_voter_set'))
 
 # 답변모델 속성
 # id : 답변데이터의 고유 번호
