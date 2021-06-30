@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 import config
 # config.py에서 설정해준 다음, 생성한 app에 적용하기 위해 임포트한 config 적용
+from flaskext.markdown import Markdown
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -50,5 +51,8 @@ def create_app():
     # 필터
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
+
+    # markdown
+    Markdown(app, extensions=['nl2br', 'fenced_code'])
 
     return app
