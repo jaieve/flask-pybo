@@ -1,4 +1,4 @@
 .idea
-pybo.db
+logs
 *.pyc
 __pycache__
